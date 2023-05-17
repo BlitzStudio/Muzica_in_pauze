@@ -1,3 +1,5 @@
+import Form from "./Form";
+
 export const Hero = () => {
   return (
     <header className="relative ">
@@ -14,9 +16,9 @@ export const Hero = () => {
         >
           <path d="M-164 13L-104 39.7C-44 66 76 120 196 141C316 162 436 152 556 119.7C676 88 796 34 916 13C1036 -8 1156 2 1216 7.7L1276 13V162.5H1216C1156 162.5 1036 162.5 916 162.5C796 162.5 676 162.5 556 162.5C436 162.5 316 162.5 196 162.5C76 162.5 -44 162.5 -104 162.5H-164V13Z" />
         </svg>
-        <div className="relative px-8 py-16 text-white flex flex-col items-start justify-center w-[100%] h-[100vh]">
-          <div className="max-w-[450px] ml-8 px-4 bg-white bg-opacity-20 backdrop-blur-lg text-gray-900 rounded-md py-6">
-            <h1 className=" font-bold  text-3xl mb-3  ">
+        <div className="relative px-8 py-16 text-white  flex  row items-center justify-between w-[100%] h-[100vh]">
+          <div className="max-w-[450px] m-8 px-4 bg-white bg-opacity-10 backdrop-blur-md text-gray-900 rounded-md py-6 h-[350px]">
+            <h1 className="font-bold  text-3xl mb-3  ">
               Pauze <span className="text-purple-800">muzicale</span>
             </h1>
             <p className="text-base text-gray-900  md:text-lg mb-5 mr-8">
@@ -36,6 +38,7 @@ export const Hero = () => {
               Afla mai multe
             </a>
           </div>
+          <Form />
         </div>
       </div>
     </header>
