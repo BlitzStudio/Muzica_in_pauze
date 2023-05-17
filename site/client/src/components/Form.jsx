@@ -1,17 +1,17 @@
 const Form = () => {
   return (
-    <div className="max-w-[450px] mr-8 px-4 bg-white bg-opacity-10 backdrop-blur-md text-gray-900 rounded-md py-6 h-[350px]">
-      <h2 className="font-semibold text-xl mb-1">Note muzicale</h2>
-      <p className="text-sm text-gray-900 mb-1">
+    <div className=" rounded-md bg-white  bg-opacity-10 px-6 py-12 text-gray-900 backdrop-blur-md ">
+      <h2 className="mb-1 text-xl font-semibold">Note muzicale</h2>
+      <p className="mb-1 text-sm text-gray-900">
         Completeaza formularul de mai jos pentru a iti auzi melodiile preferate
         in timpul pauzelor
       </p>
       <form className="flex flex-col  " action="" method="post">
-        <input className="bg-white/50 outline outline-1 block mr-2 mb-2 rounded-sm p-1" />
-        <input className="bg-white/50 outline outline-1 block mr-2 mb-2 rounded-sm p-1" />
-        <input className="bg-white/50 outline outline-1 block mr-2 mb-2 rounded-sm p-1" />
+        <input className="mb-2 mr-2 block rounded-sm bg-white/50 p-1 outline outline-1" />
+        <input className="mb-2 mr-2 block rounded-sm bg-white/50 p-1 outline outline-1" />
+        <input className="mb-2 mr-2 block rounded-sm bg-white/50 p-1 outline outline-1" />
         <a
-          className="self-start mt-auto  px-4 py-2 text-white font-medium tracking-wide bg-purple-800 rounded-sm"
+          className="mt-auto self-start  rounded-sm bg-purple-800 px-4 py-2 font-medium tracking-wide text-white"
           href=""
         >
           Google Btn
