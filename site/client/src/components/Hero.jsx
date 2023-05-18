@@ -2,7 +2,7 @@ import Form from "./Form";
 
 const Hero = () => {
   return (
-    <div className="headerImage flex h-[100vh] items-center justify-center ">
+    <div className="headerImage flex min-h-[100vh] items-center justify-center ">
       <header className="grid gap-8  bg-cover   bg-center bg-no-repeat p-4 lg:grid-cols-2">
         <div className="m-4  rounded-md bg-white bg-opacity-10 px-4  py-8 text-gray-900 backdrop-blur-md">
           <h1 className="mb-3  text-3xl font-bold  ">
