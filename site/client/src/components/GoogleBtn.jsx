@@ -6,7 +6,6 @@ const GoogleBtn = () => {
       //
       callback: (res) => {
         console.log(res.credential);
-        loginController(res.credential);
       },
     });
     google.accounts.id.renderButton(document.getElementById("googleBtn"), {
