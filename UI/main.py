@@ -1,6 +1,8 @@
 import json
 import tkinter
 import customtkinter
+import subprocess
+import sys
 
 with open("variabile.json", "r") as v:
     data = json.load(v)
@@ -44,7 +46,7 @@ frame.pack(pady=20,padx=60,fill="both",expand=True)
 # for variabile in data['variabile']:
 var = tkinter.IntVar(master=frame,value=data['nr_pauze'])
 
-label = customtkinter.CTkLabel(master=frame,text="Muzica In Pauze")
+label = customtkinter.CTkLabel(master=frame,text="Pauze Muzicale")
 
 label.pack(pady=12,padx=10)
 
@@ -52,7 +54,8 @@ entries = []
 nuentries=[]
 ora=[]
 minut=[]
-
+ora1=[]
+minut1=[]
 for i in range(10):
     tx = customtkinter.CTkTextbox(label,width=200, height=20)
     tx.grid(row=i + 10, column=0)
@@ -68,7 +71,12 @@ for i in range(10):
     en1 = customtkinter.CTkEntry(label,placeholder_text="minut")
     en1.grid(row=i + 10, column=2)
     nuentries.append(en1)
-
+def Stop():
+    sys.exit()
+def Start():
+    subprocess.run(["python", "hello.py"])
+def Prediction():
+    subprocess.run(["python", "hello.py"])
 def hallo():
     for entry in entries:
         print(int(entry.en.get())*100+int(entry.en1.get()))
@@ -77,17 +85,32 @@ def hallo():
 def pauzaMare():
     pauze_M = True
 
-
     entry2 = customtkinter.CTkEntry(master=frame,placeholder_text="Cate Pauze Mari ? ")
     entry2.place_configure(relx=0.12,
                            rely=0.25,
                            width=150,
                            anchor="sw")
 
-button1=customtkinter.CTkButton(master=frame,text="krijg",command=pauzaMare)
-button1.place(rely=0.7,
-            relx=0.5)
+    for i in range(2):
+        ora1.append(tx)
+        en2 = customtkinter.CTkEntry(label,placeholder_text="ora")
+        en2.grid(row=i+10+7, column=1)
+        entries.append(en2)
 
+        minut1.append(tx)
+        en3 = customtkinter.CTkEntry(label,placeholder_text="minut")
+        en3.grid(row=i + 10, column=2)
+        nuentries.append(en3)
+
+button1=customtkinter.CTkButton(master=frame,text="FILTREAZA",fg_color="purple",command=Prediction)
+button1.place(rely=0.8,
+            relx=0)
+button2=customtkinter.CTkButton(master=frame,text="START PROGRAM",hover_color="darkgreen",fg_color="green",command=Start)
+button2.place(rely=0.8,
+            relx=0.45)
+button2=customtkinter.CTkButton(master=frame,text="STOP PROGRAM",hover_color="darkred",fg_color="red",command=Stop)
+button2.place(rely=0.8,
+            relx=0.9)
 
 print("merge01")
 
@@ -104,9 +127,11 @@ entry1.place_configure(relx=0.22,
             rely=0.12,
             width=45,
             anchor="sw")
+ok1=customtkinter.CTkButton(master=frame,text="STOP PROGRAM",hover_color="darkred",fg_color="red",command=Stop)
+ok1.place(rely=0.8,
+            relx=0.9)
 
-
-button = customtkinter.CTkButton(master=frame,text="Login",command=login)
+button = customtkinter.CTkButton(master=frame,text="Export",command=login)
 button.pack(pady=12, padx=10)
 
 
