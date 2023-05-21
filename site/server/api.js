@@ -1,32 +1,22 @@
 import express from "express";
 import { OAuth2Client } from "google-auth-library";
-const client = new OAuth2Client(process.env["GOOGLE_ID"]);
+import { googleIdentity } from "./utils/auth.js";
 
 const router = express.Router();
 
 router.post("/login", async (req, res) => {
-  client
-    .verifyIdToken({
-      idToken: req.body.ticket,
-      audience: process.env["GOOGLE_ID"],
+  const { ticket } = req.body;
+  const userData = await googleIdentity(ticket).catch(() => {
+    res.status(401).send("This is not a valid Google account ");
+  });
+  res
+    .cookie("tk", "isLoggedIn", {
+      path: "/",
+      httpsOnly: true,
+      signed: true,
     })
-
-    .then((user) => {
-      res.cookie("tk", "isLoggedIn", {
-        path: "/",
-        httpsOnly: true,
-        signed: true,
-      });
-      const data = {
-        name: user.name,
-        picture: user.picture,
-      };
-      console.log(data);
-      res.json(data);
-    })
-    .catch((err) => {
-      console.log("Error: \n" + err);
-    });
+    .json({ name: userData.name, picture: userData.picture })
+    .send("User logged in");
 });
 
 export default router;
