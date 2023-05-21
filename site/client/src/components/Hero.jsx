@@ -1,7 +1,7 @@
 import Form from "./Form";
 import GoogleBtn from "./GoogleBtn";
 
-const Hero = () => {
+const Hero = ({ setUser }) => {
   return (
     <div className="headerImage flex min-h-[100vh] items-center justify-center ">
       <header className="grid gap-8  bg-cover   bg-center bg-no-repeat p-4 lg:grid-cols-2">
@@ -17,7 +17,7 @@ const Hero = () => {
             de bucurie și entuziasm.
           </p>
           <div className="flex">
-            <GoogleBtn />
+            <GoogleBtn setUser={setUser} />
             <a className="px-4 py-2 font-medium tracking-wide " href="">
               Afla mai multe
             </a>
