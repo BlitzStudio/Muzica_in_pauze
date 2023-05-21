@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+.headerImage {
+  background-image: url("https://cnaic.ro/wp-content/uploads/2019/12/slider-bg.jpg");
+}
