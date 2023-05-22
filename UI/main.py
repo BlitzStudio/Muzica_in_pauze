@@ -108,11 +108,20 @@ def Prediction():
 #def hallo():
     #for entry in entries:
         #print(int(entry.en.get())*100+int(entry.en1.get()))
-def export2_fct():
-    print("Hello World")
 
-def ok2(var_pm):
-    n=0
+def export2_fct(var_pm, durata_pm, ora_values, minut_values):
+    print("Hello World")
+    data = {
+        "nr_pauze_mari": var_pm,
+        "durata_pauza_mare": durata_pm,
+        "ora_values": ora_values,
+        "minut_values": minut_values
+    }
+    with open("variabile.json", "w") as file:
+        file.write(json.dumps(data))
+
+
+def ok2(var_pm, durata_pm):
     frame_1 = customtkinter.CTkFrame(master=root)
     frame_1.place(x=230, y=270)
 
@@ -133,9 +142,21 @@ def ok2(var_pm):
         en3.grid(row=i + 10, column=1)
         minut1.append(en3)
 
-
-    export2_btn = customtkinter.CTkButton(master=frame_1, text="Export2" , command=export2_fct)
+    export2_btn = customtkinter.CTkButton(master=frame_1, text="Export2",
+                                          command=lambda: get_entries(var_pm, durata_pm))
     export2_btn.grid(pady=12, padx=5)
+
+
+def get_entries(var_pm, durata_pm):
+    ora_values = []
+    minut_values = []
+
+    for entry in ora1:
+        ora_values.append(entry.get())
+    for entry in minut1:
+        minut_values.append(entry.get())
+
+    export2_fct(var_pm, durata_pm, ora_values, minut_values)
 
 
 def pauzaMare():
@@ -169,13 +190,14 @@ def pauzaMare():
                            rely=0.30,
                            width=40,
                            anchor="sw")
-    durata_pm = entry3.get()
-    var_pm = entry2.get()
 
-    ok2_btn = customtkinter.CTkButton(master=frame,
-                                  width=45, text="Ok2", command=lambda: ok2(int(entry2.get())))
-    ok2_btn.place(rely=0.245,
-              relx=0.27)
+    def ok2_callback():
+        var_pm = int(entry2.get()) if entry2.get().isdigit() else 0
+        durata_pm = int(entry3.get()) if entry3.get().isdigit() else 0
+        ok2(var_pm, durata_pm)
+
+    ok2_btn = customtkinter.CTkButton(master=frame, width=45, text="Ok2", command=ok2_callback)
+    ok2_btn.place(rely=0.245, relx=0.27)
 
 
 
