@@ -3,6 +3,7 @@ import tkinter
 import customtkinter
 import subprocess
 import sys
+import CTkMessagebox
 
 with open("variabile.json", "r") as v:
     data = json.load(v)
@@ -32,6 +33,7 @@ def login():
 
 
 
+
     with open("variabile.json", "w") as file:
         data["nr_pauze"] = var
         data["ora_pauza"] = ora_minut_pauza_values
@@ -58,10 +60,14 @@ minut=[]
 ora1=[]
 minut1=[]
 
+pauze_M = False
+
 
 def ok1():
     numar = int(entry1.get())
-
+    if numar >16:
+        subprocess.run(["python", "MessageBox.py"])
+        numar = 16
     # Destroy the existing table
     for tx in ora:
         tx.destroy()
@@ -91,18 +97,7 @@ def ok1():
         en1.grid(row=i + 10, column=2)
         minut.append(en1)
 
-def ok2():
-    frame_1 = customtkinter.CTkFrame(master=root)
-    frame_1.place(x=230, y=270)
 
-    for i in range(2):
-        en2 = customtkinter.CTkEntry(frame_1, placeholder_text="ora")
-        en2.grid(row=i + 10, column=0)
-        ora1.append(en2)
-
-        en3 = customtkinter.CTkEntry(frame_1, placeholder_text="minut")
-        en3.grid(row=i + 10, column=1)
-        minut1.append(en3)
 def Stop():
     sys.exit()
 def Start():
@@ -113,22 +108,74 @@ def Prediction():
 #def hallo():
     #for entry in entries:
         #print(int(entry.en.get())*100+int(entry.en1.get()))
+def export2_fct():
+    print("Hello World")
+
+def ok2(var_pm):
+    n=0
+    frame_1 = customtkinter.CTkFrame(master=root)
+    frame_1.place(x=230, y=270)
+
+    for en2 in ora1:
+        en2.destroy()
+    for en3 in minut1:
+        en3.destroy()
+
+    # Clear the lists
+    ora1.clear()
+    minut1.clear()
+    for i in range(var_pm):
+        en2 = customtkinter.CTkEntry(frame_1, placeholder_text="ora")
+        en2.grid(row=i + 10, column=0)
+        ora1.append(en2)
+
+        en3 = customtkinter.CTkEntry(frame_1, placeholder_text="minut")
+        en3.grid(row=i + 10, column=1)
+        minut1.append(en3)
+
+
+    export2_btn = customtkinter.CTkButton(master=frame_1, text="Export2" , command=export2_fct)
+    export2_btn.grid(pady=12, padx=5)
 
 
 def pauzaMare():
     pauze_M = True
 
-    entry2 = customtkinter.CTkEntry(master=frame,placeholder_text="Cate Pauze Mari ? ")
-    entry2.place_configure(relx=0.12,
+    Count_pauze_mari = customtkinter.CTkTextbox(master=frame, width=200, height=20)
+    Count_pauze_mari.place_configure(relx=0.12,
+                           width=190,
                            rely=0.25,
-                           width=150,
                            anchor="sw")
-    entry3 = customtkinter.CTkEntry(master=frame, placeholder_text="Durata? ")
-    entry3.place_configure(relx=0.12,
+    Count_pauze_mari.insert("0.0", "Numar de Pauze MARI:")
+    Count_pauze_mari.configure(state='disabled')
+
+
+    entry2 = customtkinter.CTkEntry(master=frame)
+    entry2.place_configure(relx=0.24,
+                           rely=0.25,
+                           width=40,
+                           anchor="sw")
+
+    Durata_pauze_mari = customtkinter.CTkTextbox(master=frame, width=200, height=20)
+    Durata_pauze_mari.place_configure(relx=0.12,
+                                     width=190,
+                                     rely=0.30,
+                                     anchor="sw")
+    Durata_pauze_mari.insert("0.0", "Durata Pauze MARI:")
+    Durata_pauze_mari.configure(state='disabled')
+
+    entry3 = customtkinter.CTkEntry(master=frame)
+    entry3.place_configure(relx=0.24,
                            rely=0.30,
-                           width=150,
+                           width=40,
                            anchor="sw")
-    var_pm = int(entry2.get())
+    durata_pm = entry3.get()
+    var_pm = entry2.get()
+
+    ok2_btn = customtkinter.CTkButton(master=frame,
+                                  width=45, text="Ok2", command=lambda: ok2(int(entry2.get())))
+    ok2_btn.place(rely=0.245,
+              relx=0.27)
 
 
 
@@ -160,13 +207,10 @@ entry1.place_configure(relx=0.22,
             anchor="sw")
 ok1=customtkinter.CTkButton(master=frame,
           width=45,text="Ok1",command=ok1)
-ok1.place(rely=0.12,
-            relx=0.25)
+ok1.place(rely=0.085,
+            relx=0.255)
 
-ok2=customtkinter.CTkButton(master=frame,
-          width=45,text="Ok2",command=ok2)
-ok2.place(rely=0.27,
-            relx=0.25)
+
 
 button = customtkinter.CTkButton(master=frame,text="Export",command=login)
 button.pack(pady=12, padx=10)
