@@ -32,6 +32,11 @@ export async function loginController(setState, ticket) {
         console.log("Error");
       });
   } else {
-    // citeste din localStorage
+    token = localStorage.getItem("token");
+    const userData = jwtDecode(token);
+    setState({
+      ...userData,
+      isLoggedIn: true,
+    });
   }
 }

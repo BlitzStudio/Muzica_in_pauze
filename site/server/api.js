@@ -1,8 +1,17 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import { googleIdentity } from "./utils/auth.js";
+import Music from "./models/musicTrack.js";
+import { AsyncHandler } from "./utils/errorHandler.js";
 
 const router = express.Router();
+
+const authMiddleware = function (req, res, next) {
+  if (req.signedCookies.tk) {
+    return next();
+  }
+  res.status(401).send("Nu ai permisiunea de a folosi acest link");
+};
 
 router.post("/login", async (req, res) => {
   const { ticket } = req.body;
@@ -14,11 +23,9 @@ router.post("/login", async (req, res) => {
         "Eroare interna nu am putut sa validam existenta acestui cont de Google "
       );
   });
+  console.log(email != process.env["GOOGLE_TEST_EMAIL"]);
 
-  if (
-    email != process.env["GOOGLE_TEST_EMAIL"] ||
-    email.includes(process.env["GOOGLE_DOMAIN_CHECK"])
-  ) {
+  if (!email.includes(process.env["GOOGLE_DOMAIN_CHECK"])) {
     return res
       .status(401)
       .send("This is not an authorized domain for this app");
@@ -39,5 +46,25 @@ router.post("/login", async (req, res) => {
     })
     .json({ token });
 });
+
+router.post(
+  "/music",
+  authMiddleware,
+  AsyncHandler(async (req, res) => {
+    const { ids } = req.body;
+    ids.forEach(async (id) => {
+      const db = Music.findById(id);
+      if (!db) {
+        const track = {
+          _id: id,
+        };
+        const Track = new Music(track);
+        await Track.save();
+      }
+    });
+
+    res.send("ok");
+  })
+);
 
 export default router;

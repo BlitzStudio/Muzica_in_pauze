@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
 import cors from "cors";
 const app = express();
 import "dotenv/config";
@@ -18,11 +19,25 @@ app.use(
   })
 );
 
+mongoose
+  .connect("mongodb://localhost:27017/pauzeMuzicale")
+  .then(() => {
+    console.log("DATABASE:Online");
+  })
+  .catch((err) => {
+    console.log("DATABASE:Offline");
+    console.log(err);
+  });
+
 app.use("/api", api);
 
 app.get("/", (req, res) => {
-  console.log(req.signedCookies);
   res.send("<h1>Hello World</h1>");
+});
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).send(message);
 });
 
 app.listen(PORT, () => {

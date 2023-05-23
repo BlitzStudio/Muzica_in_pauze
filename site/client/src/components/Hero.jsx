@@ -16,10 +16,10 @@ const Hero = ({ userData, setUser }) => {
             și vocile talentate ale elevilor se întrepătrund într-un cadru plin
             de bucurie și entuziasm.
           </p>
-          <div className="flex flex-col sm:flex-row">
+          <div className="flex flex-col items-center  justify-start gap-x-3 gap-y-3  sm:flex-row">
             {userData.isLoggedIn ? "" : <GoogleBtn setUser={setUser} />}
 
-            <a className="py-2 font-medium tracking-wide sm:px-0 " href="">
+            <a className="font-medium tracking-wide" href="">
               Afla mai multe
             </a>
           </div>
