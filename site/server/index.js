@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
-app.use(cookieParser("test1234"));
+app.use(cookieParser(process.env["COOKIE_SECRET"]));
 app.use(
   cors({
     origin: "http://localhost:8080",

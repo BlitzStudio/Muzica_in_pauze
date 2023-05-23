@@ -3,9 +3,11 @@ import axios from "./axios";
 
 export async function loginController(setState, ticket) {
   let token;
-  console.log(ticket);
+  // daca exista un ticket asta inseamna ca utilizatorul nu este conectat("logat")
+  // daca nu exista un ticket asta inseamna ca trebuie sa citesc din localStorage daca utilizatorul este sau nu logat
+  // cookiurile ar trebui sa aiba o durata de viata de o saptamana
   if (ticket) {
-    token = await axios
+    axios
       .post(
         "/api/login",
         {
@@ -16,9 +18,20 @@ export async function loginController(setState, ticket) {
         }
       )
       .then((data) => {
-        console.log(data);
+        const userData = jwtDecode(data.data.token);
+        setState({
+          ...userData,
+          isLoggedIn: true,
+        });
+        localStorage.setItem("token", data.data.token);
+      })
+      .catch((err) => {
+        console.log(err);
+        const $modal = document.getElementById("modal");
+        $modal.style.display = "block";
+        console.log("Error");
       });
-    // daca utilizatorul se logheaza
   } else {
+    // citeste din localStorage
   }
 }
