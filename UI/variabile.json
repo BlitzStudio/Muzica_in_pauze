@@ -1,1 +1,1 @@
-{"nr_pauze": 10, "ora_pauza": [845, 940, 1035, 1130, 1225, 1320, 1415, 1510, 1605, 1700], "minut_pauza": ["45", "40", "35", "30", "25", "20", "15", "10", "5", "0", "55"]}
+{"nr_pauze_mari": 1, "durata_pauza_mare": 15, "ora_pauza_mare": [9], "minut_pauza_mare": [40], "nr_pauze": 2, "ora_pauze": [1, 2], "minut_pauze": [12, 21], "durata_pauze": 10}

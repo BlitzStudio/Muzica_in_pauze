@@ -8,3 +8,5 @@ caracteristici.py scoate prop pt fiecare melodie
 predicition.py - este scriptul de intrare
 
 pandas pickle shutil librosa RandomForestRegressor
+
+messagebox source:https://stackoverflow.com/questions/65147273/tkinter-messagebox-fails-when-the-root-window-is-closed
