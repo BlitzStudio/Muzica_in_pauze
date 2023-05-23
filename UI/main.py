@@ -19,34 +19,40 @@ root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenhe
 def login():
     print("NU Test")
     var = int(entry1.get())
-
+    durata_p_variable = int(durata_p_entry.get())
+    print(var)
     ora_pauza_values = []
     minut_pauza_values =[]
-    ora_minut_pauza_values =[]
+
 
     for entry in entries:
         ora_pauza_values.append(int(entry.get()))
-    for entry in nuentries:
+    for entry in minut:
         minut_pauza_values.append(int(entry.get()))
-    for i in range(0,var):
-        ora_minut_pauza_values.append ((ora_pauza_values[i] *100) + minut_pauza_values[i])
+    #for i in range(1, var-1):
+        #ora_minut_pauza_values.append((ora_pauza_values[i] * 100) + minut_pauza_values[i])
 
 
 
 
     with open("variabile.json", "w") as file:
         data["nr_pauze"] = var
-        data["ora_pauza"] = ora_minut_pauza_values
+        data["durata_pauze"] = durata_p_variable
+        data["ora_pauze"] = ora_pauza_values
+        data["minut_pauze"] = minut_pauza_values
+
         file.write(json.dumps(data))
 
 
 frame = customtkinter.CTkFrame(master=root)
 frame.pack(pady=20,padx=60,fill="both",expand=True)
 
+frame_2 = customtkinter.CTkFrame(master=root)
+frame_2.place(x=1050, y=70)
 
 
 # for variabile in data['variabile']:
-var = tkinter.IntVar(master=frame,value=data['nr_pauze'])
+
 
 label = customtkinter.CTkLabel(master=frame,text="Pauze Muzicale")
 
@@ -111,13 +117,13 @@ def Prediction():
 
 def export2_fct(var_pm, durata_pm, ora_values, minut_values):
     print("Hello World")
-    data = {
-        "nr_pauze_mari": var_pm,
-        "durata_pauza_mare": durata_pm,
-        "ora_values": ora_values,
-        "minut_values": minut_values
-    }
+
     with open("variabile.json", "w") as file:
+        data["nr_pauze_mari"] = var_pm
+        data["durata_pauza_mare"] = durata_pm
+        data["ora_pauza_mare"] = ora_values
+        data["minut_pauza_mare"] = minut_values
+
         file.write(json.dumps(data))
 
 
@@ -152,9 +158,9 @@ def get_entries(var_pm, durata_pm):
     minut_values = []
 
     for entry in ora1:
-        ora_values.append(entry.get())
+        ora_values.append(int(entry.get()))
     for entry in minut1:
-        minut_values.append(entry.get())
+        minut_values.append(int(entry.get()))
 
     export2_fct(var_pm, durata_pm, ora_values, minut_values)
 
@@ -212,7 +218,7 @@ button2.place(rely=0.8,
             relx=0.9)
 
 print("merge01")
-
+print(":P")
 text_1 = customtkinter.CTkTextbox(master=frame, width=200, height=20)
 text_1.place_configure(relx=0.12,
             width=150,
@@ -222,11 +228,30 @@ text_1.insert("0.0", "Numar de Pauze:")
 text_1.configure(state='disabled')
 
 print('merge02')
-entry1=customtkinter.CTkEntry(master=frame, textvariable=var,placeholder_text="Numar Pauze: ")
+entry1=customtkinter.CTkEntry(master=frame)
 entry1.place_configure(relx=0.22,
             rely=0.12,
             width=45,
             anchor="sw")
+
+
+
+
+durata_p_text = customtkinter.CTkTextbox(master=frame_2, width=200, height=20)
+durata_p_text.place_configure(relx=0.72,
+            width=150,
+             rely=0.12,
+            anchor="e")
+durata_p_text.insert("0.0", "Durata pauzelor:")
+durata_p_text.configure(state='disabled')
+
+print('merge02')
+durata_p_entry=customtkinter.CTkEntry(master=frame_2)
+durata_p_entry.place_configure(relx=0.92,
+            rely=0.12,
+            width=45,
+            anchor="e")
+durata_p_variable = durata_p_entry.get()
 ok1=customtkinter.CTkButton(master=frame,
           width=45,text="Ok1",command=ok1)
 ok1.place(rely=0.085,

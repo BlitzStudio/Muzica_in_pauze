@@ -1,1 +1,1 @@
-{"nr_pauze_mari": 3, "durata_pauza_mare": 15, "ora_values": ["8", "9", "12"], "minut_values": ["00", "45", "30"]}
+{"nr_pauze_mari": 1, "durata_pauza_mare": 15, "ora_pauza_mare": [9], "minut_pauza_mare": [40], "nr_pauze": 2, "ora_pauze": [1, 2], "minut_pauze": [12, 21], "durata_pauze": 10}
