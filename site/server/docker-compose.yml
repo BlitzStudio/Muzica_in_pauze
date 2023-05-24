@@ -4,8 +4,8 @@ services:
     image: cloudflare/cloudflared
     restart: unless-stopped
     command: tunnel run
-    environment:
-      - TUNNEL_TOKEN=eyJhIjoiNzc3NjJlNmM1YTkzZWJlMjVlYTQ4OWYyZjZjZjIzY2QiLCJ0IjoiY2EwNGE4Y2UtYzc5ZS00NWJiLWEwOTgtYjUxYTQzNWRjNGQ1IiwicyI6Ik16aGhaVFV4T1RndE9UaGhZaTAwTW1VeExUZ3hNMlV0TXpNMk1XVTVZakU1T0dRMCJ9
+    env_file:
+      - ./secrets/tunnel.env
     networks:
       main:
         ipv4_address: 10.0.92.4
@@ -20,6 +20,7 @@ services:
       - VITE_SCHOOL_NAME=Colegiul National Alexandru Ioan Cuza
     volumes:
       - ./dist:/app/dist
+
   server:
     container_name: expressServer
     build: .
@@ -32,6 +33,8 @@ services:
       - JWT_SECRET=f47cb99d-cb96-44a2-8577-05a47b0e6138
       - GOOGLE_ID=217326008512-h0sev1ib4bh5es1i9ureevcjih8ktd7p.apps.googleusercontent.com
       - GOOGLE_DOMAIN_CHECK=@cnaic.ro
+    env_file:
+      - ./secrets/express.env
     restart: always
     ports:
       - 8080:8080
@@ -55,3 +58,7 @@ networks:
       driver: default
       config:
         - subnet: "10.0.92.0/24"
+
+secrets:
+  tunnel_token:
+    file: ./secrets/secret_tunnel_token
