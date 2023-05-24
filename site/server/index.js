@@ -4,23 +4,29 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 const app = express();
-import "dotenv/config";
+import "dotenv-flow/config.js";
 import api from "./api.js";
 
-const PORT = process.env.PORT;
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const { PORT, HOST } = process.env;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(cookieParser(process.env["COOKIE_SECRET"]));
 app.use(
   cors({
-    origin: "http://localhost:8080",
+    origin: process.env["ORIGIN"],
     credentials: true,
   })
 );
 
+console.log(process.env["DB_URL"]);
 mongoose
-  .connect("mongodb://localhost:27017/pauzeMuzicale")
+  .connect(process.env["DB_URL"])
   .then(() => {
     console.log("DATABASE:Online");
   })
@@ -30,9 +36,10 @@ mongoose
   });
 
 app.use("/api", api);
+app.use(express.static(__dirname + "/dist"));
 
 app.get("/", (req, res) => {
-  res.send("<h1>Hello World</h1>");
+  res.render("index");
 });
 
 app.use((err, req, res, next) => {
@@ -40,6 +47,6 @@ app.use((err, req, res, next) => {
   res.status(status).send(message);
 });
 
-app.listen(PORT, () => {
-  console.log(`App is listening on http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`Server is listening on ${HOST}:${PORT}`);
 });

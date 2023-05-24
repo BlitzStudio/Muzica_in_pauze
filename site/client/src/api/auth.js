@@ -6,6 +6,8 @@ export async function loginController(setState, ticket) {
   // daca exista un ticket asta inseamna ca utilizatorul nu este conectat("logat")
   // daca nu exista un ticket asta inseamna ca trebuie sa citesc din localStorage daca utilizatorul este sau nu logat
   // cookiurile ar trebui sa aiba o durata de viata de o saptamana
+
+  //work required for solving errors
   if (ticket) {
     axios
       .post(

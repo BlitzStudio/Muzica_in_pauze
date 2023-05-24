@@ -23,7 +23,6 @@ router.post("/login", async (req, res) => {
         "Eroare interna nu am putut sa validam existenta acestui cont de Google "
       );
   });
-  console.log(email != process.env["GOOGLE_TEST_EMAIL"]);
 
   if (!email.includes(process.env["GOOGLE_DOMAIN_CHECK"])) {
     return res
@@ -52,8 +51,10 @@ router.post(
   authMiddleware,
   AsyncHandler(async (req, res) => {
     const { ids } = req.body;
+    console.log(ids);
     ids.forEach(async (id) => {
-      const db = Music.findById(id);
+      const db = await Music.findById(id);
+      console.log(db);
       if (!db) {
         const track = {
           _id: id,

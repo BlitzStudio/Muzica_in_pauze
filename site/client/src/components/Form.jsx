@@ -7,6 +7,7 @@ const handelSubmission = async function (e) {
   const inputs = document.querySelectorAll("input");
   inputs.forEach((input) => {
     const match = input.value.match(regex);
+    input.value = "";
     if (match && match[2].length === 11) {
       ids.push(match[2]);
     }

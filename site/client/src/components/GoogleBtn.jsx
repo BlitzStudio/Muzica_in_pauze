@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import jwtDecode from "jwt-decode";
 import { loginController } from "../api/auth";
 const GoogleBtn = ({ setUser }) => {
   useEffect(() => {
