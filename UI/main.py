@@ -5,7 +5,12 @@ import subprocess
 import sys
 import CTkMessagebox
 
-with open("variabile.json", "r") as v:
+import os.path
+
+scriptpath = os.path.dirname(__file__)
+filename = os.path.join(scriptpath, 'variabile.json')
+
+with open(filename, "r") as v:
     data = json.load(v)
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -35,7 +40,7 @@ def login():
 
 
 
-    with open("variabile.json", "w") as file:
+    with open(filename, "w") as file:
         data["nr_pauze"] = var
         data["durata_pauze"] = durata_p_variable
         data["ora_pauze"] = ora_pauza_values
