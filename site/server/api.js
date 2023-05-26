@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { googleIdentity } from "./utils/auth.js";
 import Music from "./models/musicTrack.js";
 import { AsyncHandler } from "./utils/errorHandler.js";
+import { download } from "./utils/cron.js";
 
 const router = express.Router();
 
@@ -67,5 +68,13 @@ router.post(
     res.send("ok");
   })
 );
+router.get("/ping", (req, res) => {
+  res.send("Hello World");
+});
+
+router.get("/startDownload", (req, res) => {
+  download();
+  res.status(200).send("Start downloading");
+});
 
 export default router;

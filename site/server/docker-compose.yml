@@ -33,11 +33,15 @@ services:
       - JWT_SECRET=f47cb99d-cb96-44a2-8577-05a47b0e6138
       - GOOGLE_ID=217326008512-h0sev1ib4bh5es1i9ureevcjih8ktd7p.apps.googleusercontent.com
       - GOOGLE_DOMAIN_CHECK=@cnaic.ro
+      - FFMPEG_PATH=/usr/bin/ffmpeg
+
     env_file:
       - ./secrets/express.env
     restart: always
     ports:
       - 8080:8080
+    volumes:
+      - "C:\\Users\\ionut\\Desktop\\pauzeMuzicale\\muzica:/app/music"
     depends_on:
       - db
       - client

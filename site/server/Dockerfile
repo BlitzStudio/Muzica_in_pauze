@@ -4,7 +4,7 @@ WORKDIR app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install &&  apt update &&  apt install ffmpeg -y
 
 ENV HOST=0.0.0.0
 ENV PORT=8000

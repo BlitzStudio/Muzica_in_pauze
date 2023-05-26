@@ -9,6 +9,7 @@ import api from "./api.js";
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import downloadTracks, { download } from "./utils/cron.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -24,7 +25,6 @@ app.use(
   })
 );
 
-console.log(process.env["DB_URL"]);
 mongoose
   .connect(process.env["DB_URL"])
   .then(() => {
@@ -48,5 +48,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, HOST, () => {
+  // downloadTracks.start();
   console.log(`Server is listening on ${HOST}:${PORT}`);
 });
