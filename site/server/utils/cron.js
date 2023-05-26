@@ -28,7 +28,7 @@ const download = async function () {
   const ids = await Music.find({ status: 0 });
   console.log(ids);
   if (ids.length) {
-    YD.download(ids[i]._id);
+    YD.download(ids[i]._id, `${ids[i]._id}.wav`);
     YD.on("progress", function (progress) {
       console.log(JSON.stringify(progress));
     });
@@ -39,9 +39,9 @@ const download = async function () {
       await ids[i - 1].save();
 
       if (i < ids.length) {
-        YD.download(ids[i]._id);
+        YD.download(ids[i]._id, `${ids[i]._id}.wav`);
         i++;
-      } else if (i == ids.length - 1) {
+      } else if (i == ids.length) {
         console.log(i);
         mongoose.connection.close();
         console.log("Done downloading");

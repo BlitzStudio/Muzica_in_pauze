@@ -41,7 +41,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - "C:\\Users\\ionut\\Desktop\\pauzeMuzicale\\muzica:/app/music"
+      - "C:\\Users\\ionut\\projects\\Muzica_in_pauze\\ml\\data\\test_wav:/app/music"
     depends_on:
       - db
       - client

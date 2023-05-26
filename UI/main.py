@@ -121,7 +121,7 @@ def Start():
 
 
 def Prediction():
-    subprocess.run(["python", "../ml/prediction.py"])
+    subprocess.run(["powershell", "./prediction.ps1"])
 
 
 def Descarcare():

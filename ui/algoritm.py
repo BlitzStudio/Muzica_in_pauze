@@ -15,7 +15,7 @@ with open(json_path, "r") as file:
     json = json.load(file)
 
 mixer.init()
-musicPath = scriptpath + "\music"
+musicPath = "C:\\Users\\ionut\\projects\\Muzica_in_pauze\\ml\\manele0"
 tracks = os.listdir(musicPath)
 
 
@@ -57,4 +57,4 @@ def startMusic():
                 i = 0
 
 
-startMusic()
+ 

@@ -4,7 +4,7 @@
   "ora_pauza_mare": [9],
   "minut_pauza_mare": [40],
   "nr_pauze": 2,
-  "ora_pauze": [22, 22],
-  "minut_pauze": [34, 37],
+  "ora_pauze": [0, 22],
+  "minut_pauze": [14, 37],
   "durata_pauze": 2
 }
