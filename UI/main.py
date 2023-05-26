@@ -4,11 +4,14 @@ import customtkinter
 import subprocess
 import sys
 import CTkMessagebox
-
+import os, signal
 import os.path
+from algoritm import startMusic
+
+import requests
 
 scriptpath = os.path.dirname(__file__)
-filename = os.path.join(scriptpath, 'variabile.json')
+filename = os.path.join(scriptpath, "variabile.json")
 
 with open(filename, "r") as v:
     data = json.load(v)
@@ -18,7 +21,9 @@ root = customtkinter.CTk()
 root.overrideredirect(True)
 root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
 
-#variabile
+# variabile
+scriptpath = os.path.dirname(__file__)
+pid_path = os.path.join(scriptpath, "pid.json")
 
 
 def login():
@@ -27,18 +32,14 @@ def login():
     durata_p_variable = int(durata_p_entry.get())
     print(var)
     ora_pauza_values = []
-    minut_pauza_values =[]
-
+    minut_pauza_values = []
 
     for entry in entries:
         ora_pauza_values.append(int(entry.get()))
     for entry in minut:
         minut_pauza_values.append(int(entry.get()))
-    #for i in range(1, var-1):
-        #ora_minut_pauza_values.append((ora_pauza_values[i] * 100) + minut_pauza_values[i])
-
-
-
+    # for i in range(1, var-1):
+    # ora_minut_pauza_values.append((ora_pauza_values[i] * 100) + minut_pauza_values[i])
 
     with open(filename, "w") as file:
         data["nr_pauze"] = var
@@ -50,33 +51,34 @@ def login():
 
 
 frame = customtkinter.CTkFrame(master=root)
-frame.pack(pady=20,padx=60,fill="both",expand=True)
+frame.pack(pady=20, padx=60, fill="both", expand=True)
 
 frame_2 = customtkinter.CTkFrame(master=root)
 frame_2.place(x=1050, y=70)
-
+frame_desc = customtkinter.CTkFrame(master=root, width=200, height=45)
+frame_desc.place(x=678, y=725)
 
 # for variabile in data['variabile']:
 
 
-label = customtkinter.CTkLabel(master=frame,text="Pauze Muzicale")
+label = customtkinter.CTkLabel(master=frame, text="Pauze Muzicale")
 
-label.pack(pady=12,padx=10)
+label.pack(pady=12, padx=10)
 
 entries = []
-nuentries=[]
-ora=[]
-minut=[]
+nuentries = []
+ora = []
+minut = []
 
-ora1=[]
-minut1=[]
+ora1 = []
+minut1 = []
 
 pauze_M = False
 
 
 def ok1():
     numar = int(entry1.get())
-    if numar >16:
+    if numar > 16:
         subprocess.run(["python", "MessageBox.py"])
         numar = 16
     # Destroy the existing table
@@ -109,16 +111,27 @@ def ok1():
         minut.append(en1)
 
 
+# gfyerbgfyuwb
 def Stop():
     sys.exit()
-def Start():
-    subprocess.run(["python", "hello.py"])
-def Prediction():
-    subprocess.run(["python", "hello.py"])
 
-#def hallo():
-    #for entry in entries:
-        #print(int(entry.en.get())*100+int(entry.en1.get()))
+
+def Start():
+    startMusic()
+
+
+def Prediction():
+    subprocess.run(["python", "../ml/prediction.py"])
+
+
+def Descarcare():
+    requests.get("https://cncmusic.ml/api/startDownload")
+
+
+# def hallo():
+# for entry in entries:
+# print(int(entry.en.get())*100+int(entry.en1.get()))
+
 
 def export2_fct(var_pm, durata_pm, ora_values, minut_values):
     print("Hello World")
@@ -153,8 +166,9 @@ def ok2(var_pm, durata_pm):
         en3.grid(row=i + 10, column=1)
         minut1.append(en3)
 
-    export2_btn = customtkinter.CTkButton(master=frame_1, text="Export2",
-                                          command=lambda: get_entries(var_pm, durata_pm))
+    export2_btn = customtkinter.CTkButton(
+        master=frame_1, text="Export2", command=lambda: get_entries(var_pm, durata_pm)
+    )
     export2_btn.grid(pady=12, padx=5)
 
 
@@ -174,104 +188,97 @@ def pauzaMare():
     pauze_M = True
 
     Count_pauze_mari = customtkinter.CTkTextbox(master=frame, width=200, height=20)
-    Count_pauze_mari.place_configure(relx=0.12,
-                           width=190,
-                           rely=0.25,
-                           anchor="sw")
+    Count_pauze_mari.place_configure(relx=0.12, width=190, rely=0.25, anchor="sw")
     Count_pauze_mari.insert("0.0", "Numar de Pauze MARI:")
-    Count_pauze_mari.configure(state='disabled')
-
+    Count_pauze_mari.configure(state="disabled")
 
     entry2 = customtkinter.CTkEntry(master=frame)
-    entry2.place_configure(relx=0.24,
-                           rely=0.25,
-                           width=40,
-                           anchor="sw")
+    entry2.place_configure(relx=0.24, rely=0.25, width=40, anchor="sw")
 
     Durata_pauze_mari = customtkinter.CTkTextbox(master=frame, width=200, height=20)
-    Durata_pauze_mari.place_configure(relx=0.12,
-                                     width=190,
-                                     rely=0.30,
-                                     anchor="sw")
+    Durata_pauze_mari.place_configure(relx=0.12, width=190, rely=0.30, anchor="sw")
     Durata_pauze_mari.insert("0.0", "Durata Pauze MARI:")
-    Durata_pauze_mari.configure(state='disabled')
+    Durata_pauze_mari.configure(state="disabled")
 
     entry3 = customtkinter.CTkEntry(master=frame)
-    entry3.place_configure(relx=0.24,
-                           rely=0.30,
-                           width=40,
-                           anchor="sw")
+    entry3.place_configure(relx=0.24, rely=0.30, width=40, anchor="sw")
 
     def ok2_callback():
         var_pm = int(entry2.get()) if entry2.get().isdigit() else 0
         durata_pm = int(entry3.get()) if entry3.get().isdigit() else 0
         ok2(var_pm, durata_pm)
 
-    ok2_btn = customtkinter.CTkButton(master=frame, width=45, text="Ok2", command=ok2_callback)
+    ok2_btn = customtkinter.CTkButton(
+        master=frame, width=45, text="Ok2", command=ok2_callback
+    )
     ok2_btn.place(rely=0.245, relx=0.27)
 
 
+button1 = customtkinter.CTkButton(
+    master=frame, text="FILTREAZA", fg_color="purple", command=Prediction
+)
+button1.place(rely=0.8, relx=0)
+button2 = customtkinter.CTkButton(
+    master=frame,
+    text="START PROGRAM",
+    hover_color="darkgreen",
+    fg_color="green",
+    command=Start,
+)
+button2.place(rely=0.8, relx=0.45)
+button_stop = customtkinter.CTkButton(
+    master=frame,
+    text="STOP PROGRAM",
+    hover_color="darkred",
+    fg_color="red",
+    command=Stop,
+)
+button_stop.place(rely=0.8, relx=0.9)
 
-button1=customtkinter.CTkButton(master=frame,text="FILTREAZA",fg_color="purple",command=Prediction)
-button1.place(rely=0.8,
-            relx=0)
-button2=customtkinter.CTkButton(master=frame,text="START PROGRAM",hover_color="darkgreen",fg_color="green",command=Start)
-button2.place(rely=0.8,
-            relx=0.45)
-button2=customtkinter.CTkButton(master=frame,text="STOP PROGRAM",hover_color="darkred",fg_color="red",command=Stop)
-button2.place(rely=0.8,
-            relx=0.9)
 
 print("merge01")
 print(":P")
 text_1 = customtkinter.CTkTextbox(master=frame, width=200, height=20)
-text_1.place_configure(relx=0.12,
-            width=150,
-             rely=0.12,
-            anchor="sw")
+text_1.place_configure(relx=0.12, width=150, rely=0.12, anchor="sw")
 text_1.insert("0.0", "Numar de Pauze:")
-text_1.configure(state='disabled')
+text_1.configure(state="disabled")
 
-print('merge02')
-entry1=customtkinter.CTkEntry(master=frame)
-entry1.place_configure(relx=0.22,
-            rely=0.12,
-            width=45,
-            anchor="sw")
-
-
+print("merge02")
+entry1 = customtkinter.CTkEntry(master=frame)
+entry1.place_configure(relx=0.22, rely=0.12, width=45, anchor="sw")
 
 
 durata_p_text = customtkinter.CTkTextbox(master=frame_2, width=200, height=20)
-durata_p_text.place_configure(relx=0.72,
-            width=150,
-             rely=0.12,
-            anchor="e")
+durata_p_text.place_configure(relx=0.72, width=150, rely=0.12, anchor="e")
 durata_p_text.insert("0.0", "Durata pauzelor:")
-durata_p_text.configure(state='disabled')
+durata_p_text.configure(state="disabled")
 
-print('merge02')
-durata_p_entry=customtkinter.CTkEntry(master=frame_2)
-durata_p_entry.place_configure(relx=0.92,
-            rely=0.12,
-            width=45,
-            anchor="e")
+print("merge02")
+
+durata_p_entry = customtkinter.CTkEntry(master=frame_2)
+durata_p_entry.place_configure(relx=0.92, rely=0.12, width=45, anchor="e")
 durata_p_variable = durata_p_entry.get()
-ok1=customtkinter.CTkButton(master=frame,
-          width=45,text="Ok1",command=ok1)
-ok1.place(rely=0.085,
-            relx=0.255)
+
+button_desc = customtkinter.CTkButton(
+    master=frame_desc, text="DESCARCARE", command=Descarcare
+)
+button_desc.place(
+    relx=0.1,
+    rely=0.12,
+)
+
+ok1 = customtkinter.CTkButton(master=frame, width=45, text="Ok1", command=ok1)
+ok1.place(rely=0.085, relx=0.255)
 
 
-
-button = customtkinter.CTkButton(master=frame,text="Export",command=login)
+button = customtkinter.CTkButton(master=frame, text="Export", command=login)
 button.pack(pady=12, padx=10)
 
 
-checkbox = customtkinter.CTkCheckBox(master=frame, text="Exista Pauza Mare?",command=pauzaMare)
-checkbox.place(relx=0.12,
-            rely=0.20,
-            anchor="sw")
+checkbox = customtkinter.CTkCheckBox(
+    master=frame, text="Exista Pauza Mare?", command=pauzaMare
+)
+checkbox.place(relx=0.12, rely=0.20, anchor="sw")
 
 
 root.mainloop()
