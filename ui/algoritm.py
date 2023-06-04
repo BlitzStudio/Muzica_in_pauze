@@ -56,5 +56,5 @@ def startMusic():
                 print("Resetare")
                 i = 0
 
-
+startMusic()
  

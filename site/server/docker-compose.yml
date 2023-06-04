@@ -32,7 +32,7 @@ services:
       - COOKIE_SECRET=28901d2f-c0ba-4ebc-aa44-2a43ae4e9528
       - JWT_SECRET=f47cb99d-cb96-44a2-8577-05a47b0e6138
       - GOOGLE_ID=217326008512-h0sev1ib4bh5es1i9ureevcjih8ktd7p.apps.googleusercontent.com
-      - GOOGLE_DOMAIN_CHECK=@cnaic.ro
+      - GOOGLE_DOMAIN_CHECK=@gmail.com
       - FFMPEG_PATH=/usr/bin/ffmpeg
 
     env_file:

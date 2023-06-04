@@ -2,9 +2,9 @@
   "nr_pauze_mari": 1,
   "durata_pauza_mare": 15,
   "ora_pauza_mare": [9],
-  "minut_pauza_mare": [40],
+  "minut_pauza_mare": [50],
   "nr_pauze": 2,
-  "ora_pauze": [0, 22],
-  "minut_pauze": [14, 37],
-  "durata_pauze": 2
+  "ora_pauze": [9, 9],
+  "minut_pauze": [52, 53],
+  "durata_pauze": 1
 }
